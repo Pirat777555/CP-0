@@ -1,26 +1,29 @@
 package com.example.user.gds;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.webkit.WebView;
+import android.widget.TextView;
 
 import com.example.user.gds.model.CategoriesList;
 import com.example.user.gds.model.Category;
+import com.example.user.gds.model.News;
+import com.example.user.gds.model.NewsList;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+import static android.os.Build.VERSION_CODES.N;
 
+public class MainActivity extends AppCompatActivity {
+   private static final String TAG = "MyActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d(TAG,"fsdf");
+      
 
-        CategoriesList.INSTANCE.addOnUpdateListener(new CategoriesList.OnUpdateListener() {
+      CategoriesList.INSTANCE.addOnUpdateListener(new CategoriesList.OnUpdateListener() {
             @Override
             public void onUpdateComplete() {
                 Log.d(MainActivity.class.getSimpleName(), "Update compelte");
@@ -36,5 +39,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         CategoriesList.INSTANCE.updateCategories();
+
+        NewsList.INSTANCE.addOnUpdateListener(new NewsList.OnUpdateListener() {
+            @Override
+            public void onUpdateComplete() {
+                Log.d(MainActivity.class.getSimpleName(), "Update complete");
+                List<News> list1 = NewsList.INSTANCE.getNewses();
+                for (News news : list1) {
+                    Log.d(MainActivity.class.getSimpleName(), "News :" + news.getId() + " " + news.getTitle() + news.getDate() + news.getShortDesc());
+
+                }
+
+
+            }
+
+            @Override
+            public void onUpdateFailed() {
+                Log.d(MainActivity.class.getSimpleName(), "Update failed");
+            }
+
+        });
+
+        NewsList.INSTANCE.updateNews();
+
+
     }
 }

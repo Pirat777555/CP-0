@@ -1,7 +1,12 @@
 package com.example.user.gds.model;
 
+import android.widget.TextView;
+
+import com.example.user.gds.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 /**
  * Created by user on 11.11.2016.
@@ -10,7 +15,6 @@ import org.json.JSONObject;
 public class News {
 
     private String date;
-    private String fullDesc;
     private String id;
     private String shortDesc;
     private String title;
@@ -21,22 +25,16 @@ public class News {
     }
 
 
-
     public News(JSONObject json) throws JSONException {
-        this.id=json.getString(id);
-        this.date=json.getString(date);
-        this.fullDesc=json.getString(fullDesc);
-        this.title=json.getString(title);
-        this.shortDesc=json.getString(shortDesc);
+        this.id=json.getString("id");
+        this.date=json.getString("date");
+        this.title=json.getString("title");
+        this.shortDesc=json.getString("shortDescription");
 
     }
     public String getDate() { return date; }
 
     public void setDate(String date) { this.date = date; }
-
-    public String getFullDesc() { return fullDesc; }
-
-    public void setFullDesc(String fullDesc) { this.fullDesc = fullDesc; }
 
     public String getId() { return id; }
 
@@ -46,7 +44,7 @@ public class News {
 
     public void setShortDesc(String shortDesc) { this.shortDesc = shortDesc; }
 
-    public String getTitle() { return title; }
+    public  String getTitle() { return title; }
 
     public void setTitle(String title) { this.title = title; }
 
