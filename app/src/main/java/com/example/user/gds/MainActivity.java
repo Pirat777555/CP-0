@@ -12,6 +12,7 @@ import com.example.user.gds.model.NewsList;
 
 import java.util.List;
 
+import static android.R.attr.id;
 import static android.os.Build.VERSION_CODES.N;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG,"fsdf");
 
-
-      CategoriesList.INSTANCE.addOnUpdateListener(new CategoriesList.OnUpdateListener() {
+        CategoriesList.INSTANCE.addOnUpdateListener(new CategoriesList.OnUpdateListener() {
             @Override
             public void onUpdateComplete() {
                 Log.d(MainActivity.class.getSimpleName(), "Update compelte");
@@ -40,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
         });
         CategoriesList.INSTANCE.updateCategories();
 
-        NewsList.INSTANCE.addOnUpdateListener(new NewsList.OnUpdateListener() {
+       NewsList.addOnUpdateListener(new NewsList.OnUpdateListener() {
             @Override
             public void onUpdateComplete() {
                 Log.d(MainActivity.class.getSimpleName(), "Update complete");
-                List<News> list1 = NewsList.INSTANCE.getNewses();
+                List<News> list1 = NewsList.getNews();
                 for (News news : list1) {
-                    Log.d(MainActivity.class.getSimpleName(), "News :" + news.getId() + " " + news.getTitle() + news.getDate() + news.getShortDesc());
+                    Log.d(MainActivity.class.getSimpleName(), "News :" + news.getId() + " " + news.getTitle()+ " "  + news.getDate()+ " "  + news.getShortDesc());
 
                 }
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        NewsList.INSTANCE.updateNews();
+        NewsList.updateNews();
 
 
     }

@@ -4,9 +4,11 @@ package com.example.user.gds.model;
  * Created by user on 11.11.2016.
  */
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.example.user.gds.MainActivity;
 import com.example.user.gds.utils.InputStreamUtils;
-
+import com.example.user.gds.model.Category;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import java.net.HttpURLConnection;
@@ -14,17 +16,25 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public enum NewsList {
-    INSTANCE;
+import static android.R.attr.category;
+import static android.R.attr.id;
+import static com.example.user.gds.model.CategoriesList.INSTANCE;
 
-    private List<News> newses;
+public class NewsList {
 
+    List<Category> list = CategoriesList.INSTANCE.getCategories();
+
+   private static String id="0";
+
+
+
+    private static List<News> news;
     NewsList() {
-        newses = new ArrayList<>();
+        news = new ArrayList<>();
     }
 
-    public List<News> getNewses() {
-        return newses;
+    public static List<News> getNews() {
+        return news;
     }
 
     public interface OnUpdateListener {
@@ -35,9 +45,9 @@ public enum NewsList {
 
     }
 
-    private ArrayList<NewsList.OnUpdateListener> listeners = new ArrayList<>();
+    private static ArrayList<NewsList.OnUpdateListener> listeners = new ArrayList<>();
 
-    public void addOnUpdateListener(NewsList.OnUpdateListener listener) {
+    public static void addOnUpdateListener(NewsList.OnUpdateListener listener) {
         listeners.add(listener);
     }
 
@@ -45,12 +55,12 @@ public enum NewsList {
         listeners.remove(listener);
     }
 
-    public void updateNews() {
+    public static void updateNews() {
         new AsyncTask<Void, Void, List<News>>() {
             @Override
             protected List<News> doInBackground(Void... voids) {
                 try {
-                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/categories/0/news").openConnection();
+                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/categories/"+id+"/news").openConnection();
                     connection.setRequestMethod("GET");
                     connection.setUseCaches(false);
                     String response = InputStreamUtils.toString(connection.getInputStream());
@@ -68,15 +78,15 @@ public enum NewsList {
             }
 
             @Override
-            protected void onPostExecute(List<News> newses) {
-                super.onPostExecute(newses);
+            protected void onPostExecute(List<News> news) {
+                super.onPostExecute(news);
 
-                if (newses == null) {
+                if (news == null) {
                     for (OnUpdateListener listener : listeners) {
                         listener.onUpdateFailed();
                     }
                 } else {
-                    NewsList.this.newses = newses;
+                    NewsList.news = news;
                     for (OnUpdateListener listener : listeners) {
                         listener.onUpdateComplete();
                     }

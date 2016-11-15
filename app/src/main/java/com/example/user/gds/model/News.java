@@ -18,11 +18,12 @@ public class News {
     private String id;
     private String shortDesc;
     private String title;
-
+    private String fullDesc;
 
     public News() {
 
     }
+
 
 
     public News(JSONObject json) throws JSONException {
@@ -30,6 +31,8 @@ public class News {
         this.date=json.getString("date");
         this.title=json.getString("title");
         this.shortDesc=json.getString("shortDescription");
+
+
 
     }
     public String getDate() { return date; }
@@ -48,5 +51,14 @@ public class News {
 
     public void setTitle(String title) { this.title = title; }
 
+    public String getFullDesc() {        return fullDesc;    }
+
+    public void setFullDesc(String fullDesc) {        this.fullDesc = fullDesc;    }
+
+    public void updateNews() {
+
+
+
+    }
 
 }
