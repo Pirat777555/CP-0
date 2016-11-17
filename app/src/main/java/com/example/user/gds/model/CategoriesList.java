@@ -17,6 +17,7 @@ public enum CategoriesList {
 
     private List<Category> categories;
 
+
     CategoriesList() {
         categories = new ArrayList<>();
     }
@@ -49,7 +50,7 @@ public enum CategoriesList {
                     connection.setRequestMethod("GET");
                     connection.setUseCaches(false);
                     String response = InputStreamUtils.toString(connection.getInputStream());
-                    JSONObject json = new JSONObject(response);
+                    JSONObject  json = new JSONObject(response);
                     JSONArray jsonArray = json.getJSONArray("list");
                     List<Category> result = new ArrayList<Category>();
                     for (int i = 0; i < jsonArray.length(); ++i) {

@@ -12,16 +12,21 @@ import com.example.user.gds.model.NewsList;
 
 import java.util.List;
 
+import static android.R.attr.category;
 import static android.R.attr.id;
+import static android.R.id.list;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.os.Build.VERSION_CODES.N;
 
 public class MainActivity extends AppCompatActivity {
-   private static final String TAG = "MyActivity";
+    private static final String TAG = "MyActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d(TAG,"fsdf");
+        Log.d(TAG, "fsdf");
+
 
         CategoriesList.INSTANCE.addOnUpdateListener(new CategoriesList.OnUpdateListener() {
             @Override
@@ -40,28 +45,39 @@ public class MainActivity extends AppCompatActivity {
         });
         CategoriesList.INSTANCE.updateCategories();
 
-       NewsList.addOnUpdateListener(new NewsList.OnUpdateListener() {
-            @Override
-            public void onUpdateComplete() {
-                Log.d(MainActivity.class.getSimpleName(), "Update complete");
-                List<News> list1 = NewsList.getNews();
-                for (News news : list1) {
-                    Log.d(MainActivity.class.getSimpleName(), "News :" + news.getId() + " " + news.getTitle()+ " "  + news.getDate()+ " "  + news.getShortDesc());
-
-                }
 
 
-            }
-
-            @Override
-            public void onUpdateFailed() {
-                Log.d(MainActivity.class.getSimpleName(), "Update failed");
-            }
-
-        });
-
-        NewsList.updateNews();
 
 
-    }
-}
+
+
+            List<Category> list = CategoriesList.INSTANCE.getCategories();
+            for (Category category : list) {
+                Log.d(MainActivity.class.getSimpleName(), "Category: ");
+
+                final NewsList newsList = new NewsList(category);
+                newsList.addOnUpdateListener(new NewsList.OnUpdateListener() {
+                    @Override
+                    public void onUpdateComplete() {
+                        Log.d(MainActivity.class.getSimpleName(), "Update compelte");
+                        newsList.updateNews();
+                    }
+
+                    @Override
+                    public void onUpdateFailed() {
+                        Log.d(MainActivity.class.getSimpleName(), "Update failed");
+                    }
+
+
+                });
+
+
+        }
+    }}
+
+
+
+
+
+
+

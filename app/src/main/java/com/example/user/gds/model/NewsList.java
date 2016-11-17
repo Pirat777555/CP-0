@@ -4,9 +4,11 @@ package com.example.user.gds.model;
  * Created by user on 11.11.2016.
  */
 import android.os.AsyncTask;
+import android.os.Build;
 import android.util.Log;
 
 import com.example.user.gds.MainActivity;
+import com.example.user.gds.R;
 import com.example.user.gds.utils.InputStreamUtils;
 import com.example.user.gds.model.Category;
 import org.json.JSONArray;
@@ -18,24 +20,30 @@ import java.util.List;
 
 import static android.R.attr.category;
 import static android.R.attr.id;
+import static android.R.attr.widgetCategory;
+import static android.os.Build.VERSION_CODES.M;
 import static com.example.user.gds.model.CategoriesList.INSTANCE;
 
 public class NewsList {
 
-    List<Category> list = CategoriesList.INSTANCE.getCategories();
 
-   private static String id="0";
-
-
-
-    private static List<News> news;
+    private   List<News> news;
     NewsList() {
         news = new ArrayList<>();
     }
 
-    public static List<News> getNews() {
+
+public Category category;
+    public NewsList(Category category) {
+        this.category = category;
+    }
+
+
+
+    public  List<News> getNews() {
         return news;
     }
+
 
     public interface OnUpdateListener {
 
@@ -45,9 +53,9 @@ public class NewsList {
 
     }
 
-    private static ArrayList<NewsList.OnUpdateListener> listeners = new ArrayList<>();
+    private  ArrayList<NewsList.OnUpdateListener> listeners = new ArrayList<>();
 
-    public static void addOnUpdateListener(NewsList.OnUpdateListener listener) {
+    public  void addOnUpdateListener(NewsList.OnUpdateListener listener) {
         listeners.add(listener);
     }
 
@@ -55,12 +63,13 @@ public class NewsList {
         listeners.remove(listener);
     }
 
-    public static void updateNews() {
+    public void updateNews() {
         new AsyncTask<Void, Void, List<News>>() {
             @Override
             protected List<News> doInBackground(Void... voids) {
                 try {
-                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/categories/"+id+"/news").openConnection();
+
+                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/categories/0/news").openConnection();
                     connection.setRequestMethod("GET");
                     connection.setUseCaches(false);
                     String response = InputStreamUtils.toString(connection.getInputStream());
@@ -70,6 +79,7 @@ public class NewsList {
                     for (int i = 0; i < jsonArray.length(); ++i) {
                         result.add(new News(jsonArray.getJSONObject(i)));
                     }
+
                     return result;
                 } catch (Exception e) {
                     //TODO: обработка ошибок
@@ -86,7 +96,7 @@ public class NewsList {
                         listener.onUpdateFailed();
                     }
                 } else {
-                    NewsList.news = news;
+                    NewsList.this.news = news;
                     for (OnUpdateListener listener : listeners) {
                         listener.onUpdateComplete();
                     }
