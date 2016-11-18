@@ -7,13 +7,9 @@ import org.json.JSONObject;
 
 public class Category {
 
-    private  String  id;
-    private  String name;
+    private String  id;
+    private String name;
 
-
-    public Category() {
-
-    }
 
 
 

@@ -1,5 +1,6 @@
 package com.example.user.gds;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import com.example.user.gds.model.CategoriesList;
 import com.example.user.gds.model.Category;
 import com.example.user.gds.model.News;
 import com.example.user.gds.model.NewsList;
+import com.example.user.gds.ui.CategoriesListActivity;
 
 import java.util.List;
 
@@ -27,53 +29,46 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Log.d(TAG, "fsdf");
 
-
-        CategoriesList.INSTANCE.addOnUpdateListener(new CategoriesList.OnUpdateListener() {
-            @Override
-            public void onUpdateComplete() {
-                Log.d(MainActivity.class.getSimpleName(), "Update compelte");
-                List<Category> list = CategoriesList.INSTANCE.getCategories();
-                for (Category category : list) {
-                    Log.d(MainActivity.class.getSimpleName(), "Category: " + category.getId() + " " + category.getName());
-                }
-            }
-
-            @Override
-            public void onUpdateFailed() {
-                Log.d(MainActivity.class.getSimpleName(), "Update failed");
-            }
-        });
-        CategoriesList.INSTANCE.updateCategories();
+        Intent i = new Intent(this, CategoriesListActivity.class);
+        startActivity(i);
 
 
-
-
-
-
-
-            List<Category> list = CategoriesList.INSTANCE.getCategories();
-            for (Category category : list) {
-                Log.d(MainActivity.class.getSimpleName(), "Category: ");
-
-                final NewsList newsList = new NewsList(category);
-                newsList.addOnUpdateListener(new NewsList.OnUpdateListener() {
-                    @Override
-                    public void onUpdateComplete() {
-                        Log.d(MainActivity.class.getSimpleName(), "Update compelte");
-                        newsList.updateNews();
-                    }
-
-                    @Override
-                    public void onUpdateFailed() {
-                        Log.d(MainActivity.class.getSimpleName(), "Update failed");
-                    }
-
-
-                });
-
-
-        }
-    }}
+//        CategoriesList.INSTANCE.addOnUpdateListener(new CategoriesList.OnUpdateListener() {
+//            @Override
+//            public void onUpdateComplete() {
+//                Log.d(MainActivity.class.getSimpleName(), "Update compelte");
+//                List<Category> list = CategoriesList.INSTANCE.getCategories();
+//                for (Category category : list) {
+//                    Log.d(MainActivity.class.getSimpleName(), "Category: " + category.getId() + " " + category.getName());
+//
+//                    final NewsList newsList = new NewsList(category);
+//                    newsList.addOnUpdateListener(new NewsList.OnUpdateListener() {
+//                        @Override
+//                        public void onUpdateComplete() {
+//                            Log.d(MainActivity.class.getSimpleName(), "Update compelte");
+//                            for (News news : newsList.getNews()) {
+//                                Log.d(MainActivity.class.getSimpleName(), "News from category " + newsList.getCategory().getName() + ": " + news.getId() + " " + news.getTitle());
+//                                news.updateNews();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onUpdateFailed() {
+//                            Log.d(MainActivity.class.getSimpleName(), "Update failed");
+//                        }
+//                    });
+//                    newsList.updateNews();
+//                }
+//            }
+//
+//            @Override
+//            public void onUpdateFailed() {
+//                Log.d(MainActivity.class.getSimpleName(), "Update failed");
+//            }
+//        });
+//        CategoriesList.INSTANCE.updateCategories();
+    }
+}
 
 
 
