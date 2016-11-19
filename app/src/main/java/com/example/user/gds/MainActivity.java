@@ -11,11 +11,13 @@ import com.example.user.gds.model.Category;
 import com.example.user.gds.model.News;
 import com.example.user.gds.model.NewsList;
 import com.example.user.gds.ui.CategoriesListActivity;
+import com.example.user.gds.ui.NewsListActivity;
 
 import java.util.List;
 
 import static android.R.attr.category;
 import static android.R.attr.id;
+import static android.R.attr.start;
 import static android.R.id.list;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.os.Build.VERSION_CODES.N;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i = new Intent(this, CategoriesListActivity.class);
         startActivity(i);
+
 
 
 //        CategoriesList.INSTANCE.addOnUpdateListener(new CategoriesList.OnUpdateListener() {
@@ -67,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 //        CategoriesList.INSTANCE.updateCategories();
-    }
+   }
+
 }
 
 

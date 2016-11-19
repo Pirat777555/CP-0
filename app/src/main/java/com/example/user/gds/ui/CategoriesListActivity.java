@@ -1,6 +1,7 @@
 package com.example.user.gds.ui;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -24,6 +25,7 @@ public class CategoriesListActivity extends Activity implements CategoriesList.O
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         categoriesList = CategoriesList.INSTANCE;
+
     }
 
     @Override

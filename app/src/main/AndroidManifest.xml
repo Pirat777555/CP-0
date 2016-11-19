@@ -14,20 +14,18 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".am2">
-        </activity>
-        <activity android:name=".am3">
         </activity>
 
         <activity android:name="com.example.user.gds.ui.CategoriesListActivity">
         </activity>
-
         <activity android:name="com.example.user.gds.ui.NewsListActivity">
+                 </activity>
+        <activity android:name="com.example.user.gds.ui.NewsActivity">
         </activity>
+
+
 
     </application>
 

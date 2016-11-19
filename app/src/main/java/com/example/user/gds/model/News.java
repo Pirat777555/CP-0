@@ -1,5 +1,6 @@
 package com.example.user.gds.model;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by user on 11.11.2016.
  */
 
-public class News {
+public class News  {
 
     private  String date;
     private String id;
@@ -30,15 +31,20 @@ public class News {
 
 
     public News(JSONObject json) throws JSONException {
-        this.id=json.getString("id");
-        this.date=json.getString("date");
-        this.title=json.getString("title");
-        this.shortDesc=json.getString("shortDescription");
 
-
+   parseJson(json);
 
     }
+  public void parseJson(JSONObject json) throws JSONException  {
 
+      this.id=json.getString("id");
+      this.date=json.getString("date");
+      this.title=json.getString("title");
+      this.shortDesc=json.getString("shortDescription");
+    // this.fullDesc=json.getString("fullDescription");
+
+
+ }
 
 
     public String getDate() { return date; }
