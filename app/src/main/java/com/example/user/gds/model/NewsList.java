@@ -26,19 +26,16 @@ import static com.example.user.gds.model.CategoriesList.INSTANCE;
 
 public class NewsList {
 
+    private final Category category;
+    private List<News> news;
 
-    private   List<News> news;
-    NewsList() {
-        news = new ArrayList<>();
-    }
-
-
-public Category category;
     public NewsList(Category category) {
         this.category = category;
     }
 
-
+    public Category getCategory() {
+        return category;
+    }
 
     public  List<News> getNews() {
         return news;
@@ -69,7 +66,7 @@ public Category category;
             protected List<News> doInBackground(Void... voids) {
                 try {
 
-                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/categories/0/news").openConnection();
+                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/categories/" + category.getId() + "/news").openConnection();
                     connection.setRequestMethod("GET");
                     connection.setUseCaches(false);
                     String response = InputStreamUtils.toString(connection.getInputStream());

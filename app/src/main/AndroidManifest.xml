@@ -19,19 +19,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".am2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".am3">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+        <activity android:name="com.example.user.gds.ui.CategoriesListActivity">
+        </activity>
+
+        <activity android:name="com.example.user.gds.ui.NewsListActivity">
+        </activity>
+
     </application>
 
 </manifest>

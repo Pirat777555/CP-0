@@ -80,4 +80,13 @@ public enum CategoriesList {
             }
         }.execute();
     }
+
+    public Category findCategoryById(String categoryId) {
+        for (Category category : categories) {
+            if (category.getId().equalsIgnoreCase(categoryId)) {
+                return category;
+            }
+        }
+        throw new RuntimeException("Category not found " + categoryId);
+    }
 }

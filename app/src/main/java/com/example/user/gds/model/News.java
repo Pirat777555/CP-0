@@ -28,11 +28,6 @@ public class News {
     private String title;
     private String fullDesc;
 
-    public News(String date) {
-
-    }
-
-
 
     public News(JSONObject json) throws JSONException {
         this.id=json.getString("id");
@@ -43,6 +38,9 @@ public class News {
 
 
     }
+
+
+
     public String getDate() { return date; }
 
     public void setDate(String date) { this.date = date; }
@@ -73,7 +71,7 @@ public class News {
 
 
                 try {
-                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/details?id=17").openConnection();
+                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/details?id=" +id).openConnection();
                     connection.setRequestMethod("GET");
                     String response = InputStreamUtils.toString(connection.getInputStream());
                     JSONObject json = new JSONObject(response);
