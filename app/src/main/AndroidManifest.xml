@@ -17,12 +17,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name="com.example.user.gds.ui.CategoriesListActivity">
+
         </activity>
         <activity android:name="com.example.user.gds.ui.NewsListActivity">
-                 </activity>
+
+
+                            </activity>
         <activity android:name="com.example.user.gds.ui.NewsActivity">
+
         </activity>
 
 

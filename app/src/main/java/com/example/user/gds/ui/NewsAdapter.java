@@ -19,19 +19,19 @@ import java.util.List;
 /**
  * Created by user on 19.11.2016.
  */
-public class NewsAdapter extends RecyclerView.Adapter<NewsListViewHolder> {
+class NewsAdapter extends RecyclerView.Adapter<NewsListViewHolder> {
 
     private List<News> news;
 
     public NewsAdapter(List<News> news) {
-
         this.news = new ArrayList<>(news);
+
     }
 
     @Override
     public NewsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
-        View view = LayoutInflater.from(context).inflate(R.layout.newslist_view, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.news_view, parent, false);
         return new NewsListViewHolder(view);
     }
 

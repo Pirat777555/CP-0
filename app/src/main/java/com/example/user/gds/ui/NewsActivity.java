@@ -13,6 +13,7 @@ import com.example.user.gds.model.News;
 import org.w3c.dom.Text;
 
 import static android.R.attr.category;
+import static com.example.user.gds.R.layout.news;
 import static com.example.user.gds.ui.NewsListActivity.INTENT_PARAM_CATEGORY_ID;
 
 /**
@@ -21,9 +22,8 @@ import static com.example.user.gds.ui.NewsListActivity.INTENT_PARAM_CATEGORY_ID;
 
 public class NewsActivity extends Activity {
 
-    public static final String news12 = "news12";
+    public static String news12 = "news12";
 
-    private News news;
 private TextView textnews;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,6 @@ private TextView textnews;
         String newstitle1 = getIntent().getStringExtra(news12);
         textnews = (TextView) findViewById(R.id.textnews);
         textnews.setText(newstitle1);
-        Log.d("TAG", news.getId() + news.getDate());
+
     }
 }

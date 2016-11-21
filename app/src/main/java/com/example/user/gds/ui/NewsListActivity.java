@@ -16,6 +16,7 @@ import java.util.List;
 
 import static com.example.user.gds.R.id.recyclerView;
 import static com.example.user.gds.R.id.recyclerView2;
+import static com.example.user.gds.R.layout.news;
 
 public class NewsListActivity extends Activity implements NewsList.OnUpdateListener {
 
@@ -32,17 +33,19 @@ public class NewsListActivity extends Activity implements NewsList.OnUpdateListe
         setContentView(R.layout.newslist_view);
         recyclerView = (RecyclerView) findViewById(recyclerView2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        String categoryId = getIntent().getStringExtra(INTENT_PARAM_CATEGORY_ID);
+        String categoryId = getIntent().getStringExtra("INTENT_PARAM_CATEGORY_ID");
         category = CategoriesList.INSTANCE.findCategoryById(categoryId);
         Log.d("TAG", category.getName());
         newslist = new NewsList(category);
-        newslist.getNews();
+
+        newslist.updateNews();
     }
 
 @Override
     protected void onResume() {
         super.onResume();
-        newslist.updateNews();
+           newslist.getNews();
+
         newslist.addOnUpdateListener(this);
         refresh();
     }

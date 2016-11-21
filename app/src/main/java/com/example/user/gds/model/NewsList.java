@@ -30,7 +30,10 @@ public class NewsList {
     private List<News> news;
 
     public NewsList(Category category) {
+        news = new ArrayList<>();
         this.category = category;
+
+
     }
 
     public Category getCategory() {
@@ -38,6 +41,7 @@ public class NewsList {
     }
 
     public  List<News> getNews() {
+
         return news;
     }
 

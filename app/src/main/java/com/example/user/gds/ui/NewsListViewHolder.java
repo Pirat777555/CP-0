@@ -2,7 +2,9 @@ package com.example.user.gds.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.nfc.Tag;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,6 +12,8 @@ import com.example.user.gds.R;
 import com.example.user.gds.model.Category;
 import com.example.user.gds.model.News;
 import com.example.user.gds.model.NewsList;
+
+import java.util.ArrayList;
 
 import static android.R.attr.category;
 
@@ -33,19 +37,16 @@ public class NewsListViewHolder extends RecyclerView.ViewHolder {
             public void onClick(View view) {
                 Context context = newsView.getContext();
                 Intent i = new Intent(context, NewsActivity.class);
-                i.putExtra(NewsActivity.news12, news.getId() + " " + news.getTitle());
+                i.putExtra(NewsActivity.news12, news.getId() + " " + news.getTitle()+news.getDate()+news.getShortDesc());
                 context.startActivity(i);
             }
         });
     }
-    public News getNews()
-    {
-        return  news;
-    }
+
 
     public void setNews(News news) {
-        this.news = news;
-        newsView.setText(news.getId()+" "+news.getTitle());
+     this.news= news;
+            newsView.setText(news.getId() + " " + news.getTitle() +" "+news.getDate()+" "+news.getShortDesc());
     }
 }
 
