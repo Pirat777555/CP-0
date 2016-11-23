@@ -22,6 +22,7 @@ import static android.R.attr.category;
 import static android.R.attr.id;
 import static android.R.attr.widgetCategory;
 import static android.os.Build.VERSION_CODES.M;
+import static android.os.Build.VERSION_CODES.N;
 import static com.example.user.gds.model.CategoriesList.INSTANCE;
 
 public class NewsList {
@@ -62,6 +63,15 @@ public class NewsList {
 
     public void removeOnUpdateListener(NewsList.OnUpdateListener listener) {
         listeners.remove(listener);
+    }
+    public News findNewsById(String news12) {
+        for (News news1 : news ) {
+
+            if (news1.getId().equalsIgnoreCase(news12)) {
+                return news1;
+            }
+        }
+        throw new RuntimeException("Category not found " + news12);
     }
 
     public void updateNews() {
@@ -105,7 +115,11 @@ public class NewsList {
             }
         }.execute();
     }
-    }
+
+
+
+}
+
 
 
 

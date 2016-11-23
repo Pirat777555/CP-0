@@ -16,6 +16,7 @@ import com.example.user.gds.model.NewsList;
 import java.util.ArrayList;
 
 import static android.R.attr.category;
+import static com.example.user.gds.ui.NewsActivity.news12;
 
 /**
  * Created by user on 19.11.2016.
@@ -35,9 +36,10 @@ public class NewsListViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Context context = newsView.getContext();
                 Intent i = new Intent(context, NewsActivity.class);
-                i.putExtra(NewsActivity.news12, news.getId() + " " + news.getTitle()+news.getDate()+news.getShortDesc());
+                i.putExtra(news12, news.getId());
                 context.startActivity(i);
             }
         });
@@ -46,7 +48,8 @@ public class NewsListViewHolder extends RecyclerView.ViewHolder {
 
     public void setNews(News news) {
      this.news= news;
-            newsView.setText(news.getId() + " " + news.getTitle() +" "+news.getDate()+" "+news.getShortDesc());
+            newsView.setText( " " + news.getTitle() +" "+news.getDate()+" "+news.getShortDesc());
+
     }
 }
 

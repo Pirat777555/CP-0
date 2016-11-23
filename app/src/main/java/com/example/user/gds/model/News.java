@@ -17,11 +17,16 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.category;
+import static com.example.user.gds.R.layout.news;
+import static com.example.user.gds.R.layout.news_view;
+
 /**
  * Created by user on 11.11.2016.
  */
 
 public class News {
+
 
     private String date;
     private String id;
@@ -34,6 +39,7 @@ public class News {
 
         parseJson(json);
 
+
     }
 
     public void parseJson(JSONObject json) throws JSONException {
@@ -42,10 +48,10 @@ public class News {
         this.date = json.getString("date");
         this.title = json.getString("title");
         this.shortDesc = json.getString("shortDescription");
-        // this.fullDesc=json.getString("fullDescription");
 
 
     }
+
 
 
     public String getDate() {
@@ -80,13 +86,7 @@ public class News {
         this.title = title;
     }
 
-    public String getFullDesc() {
-        return fullDesc;
-    }
 
-    public void setFullDesc(String fullDesc) {
-        this.fullDesc = fullDesc;
-    }
 
 }
 

@@ -14,9 +14,9 @@ import com.example.user.gds.model.NewsList;
 
 import java.util.List;
 
-import static com.example.user.gds.R.id.recyclerView;
 import static com.example.user.gds.R.id.recyclerView2;
 import static com.example.user.gds.R.layout.news;
+import static com.example.user.gds.ui.NewsActivity.news12;
 
 public class NewsListActivity extends Activity implements NewsList.OnUpdateListener {
 
@@ -37,7 +37,6 @@ public class NewsListActivity extends Activity implements NewsList.OnUpdateListe
         category = CategoriesList.INSTANCE.findCategoryById(categoryId);
         Log.d("TAG", category.getName());
         newslist = new NewsList(category);
-
         newslist.updateNews();
     }
 
@@ -48,6 +47,7 @@ public class NewsListActivity extends Activity implements NewsList.OnUpdateListe
 
         newslist.addOnUpdateListener(this);
         refresh();
+
     }
     @Override
     protected void onPause() {
@@ -69,4 +69,7 @@ public class NewsListActivity extends Activity implements NewsList.OnUpdateListe
     public void onUpdateFailed() {
 
     }
+
+
+
 }
