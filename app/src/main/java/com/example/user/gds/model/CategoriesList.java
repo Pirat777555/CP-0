@@ -26,6 +26,8 @@ public enum CategoriesList {
         return categories;
     }
 
+
+
     public interface OnUpdateListener {
         void onUpdateComplete();
         void onUpdateFailed();

@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.example.user.gds.R;
 import com.example.user.gds.model.Category;
 
+import static com.example.user.gds.R.layout.news;
+
 public class CategoryViewHolder extends RecyclerView.ViewHolder {
 
     private Category category;
@@ -22,10 +24,15 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder {
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Context context = titleView.getContext();
                 Intent i = new Intent(context, NewsListActivity.class);
                 i.putExtra(NewsListActivity.INTENT_PARAM_CATEGORY_ID, category.getId());
+
                 context.startActivity(i);
+
+
+
             }
         });
     }

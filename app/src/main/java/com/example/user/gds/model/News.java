@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.attr.category;
+import static android.os.Build.VERSION_CODES.N;
 import static com.example.user.gds.R.layout.news;
 import static com.example.user.gds.R.layout.news_view;
 
@@ -39,8 +40,8 @@ public class News {
 
         parseJson(json);
 
-
     }
+
 
     public void parseJson(JSONObject json) throws JSONException {
 
@@ -49,6 +50,11 @@ public class News {
         this.title = json.getString("title");
         this.shortDesc = json.getString("shortDescription");
 
+    }
+    public void parsefullDesc(JSONObject json2) throws JSONException {
+
+
+        this.fullDesc = json2.getString("fullDescription");
 
     }
 
@@ -85,6 +91,7 @@ public class News {
     public void setTitle(String title) {
         this.title = title;
     }
+
 
 
 

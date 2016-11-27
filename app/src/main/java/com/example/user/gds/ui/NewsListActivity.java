@@ -1,6 +1,8 @@
 package com.example.user.gds.ui;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +16,7 @@ import com.example.user.gds.model.NewsList;
 
 import java.util.List;
 
+import static android.R.attr.category;
 import static com.example.user.gds.R.id.recyclerView2;
 import static com.example.user.gds.R.layout.news;
 import static com.example.user.gds.ui.NewsActivity.news12;
@@ -22,7 +25,7 @@ public class NewsListActivity extends Activity implements NewsList.OnUpdateListe
 
     public static final String INTENT_PARAM_CATEGORY_ID = "INTENT_PARAM_CATEGORY_ID";
 
-    private Category category;
+
     private RecyclerView recyclerView;
 
     private NewsList newslist;
@@ -31,13 +34,15 @@ public class NewsListActivity extends Activity implements NewsList.OnUpdateListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newslist_view);
+        Category category;
         recyclerView = (RecyclerView) findViewById(recyclerView2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        String categoryId = getIntent().getStringExtra("INTENT_PARAM_CATEGORY_ID");
+       String categoryId = getIntent().getStringExtra("INTENT_PARAM_CATEGORY_ID");
         category = CategoriesList.INSTANCE.findCategoryById(categoryId);
         Log.d("TAG", category.getName());
-        newslist = new NewsList(category);
+        newslist =  NewsList.getList(category);
         newslist.updateNews();
+
     }
 
 @Override
