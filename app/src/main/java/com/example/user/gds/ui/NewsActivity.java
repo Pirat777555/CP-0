@@ -50,7 +50,7 @@ textnews = (TextView) findViewById(R.id.newsops);
 
                 String newsid = getIntent().getStringExtra("news12");
  news = NewsList.getList(category).findNewsById(newsid);
-
+        news.updateOneNews();
 
 
    //    webview.loadData("text/html; charset=UTF-8",null);
