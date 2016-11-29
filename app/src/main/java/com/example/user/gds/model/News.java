@@ -2,6 +2,7 @@ package com.example.user.gds.model;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.example.user.gds.R;
@@ -18,7 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.R.attr.category;
+import static android.content.ContentValues.TAG;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.os.Build.VERSION_CODES.N;
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 import static com.example.user.gds.R.layout.news;
 import static com.example.user.gds.R.layout.news_view;
 
@@ -28,6 +32,7 @@ import static com.example.user.gds.R.layout.news_view;
 
 public class News {
 
+    private  ArrayList<News.OnUpdateListener> listeners = new ArrayList<>();
 
     private String date;
     private String id;
@@ -36,29 +41,24 @@ public class News {
     private String fullDesc;
 
 
-    public News(JSONObject json) throws JSONException {
+    public News(JSONObject jsonObject) throws JSONException {
 
-        parseJson(json);
+        parseJson(jsonObject);
+
 
     }
 
 
-    public void parseJson(JSONObject json) throws JSONException {
+    public void parseJson(JSONObject jsonObject) throws JSONException {
 
-        this.id = json.getString("id");
-        this.date = json.getString("date");
-        this.title = json.getString("title");
-        this.shortDesc = json.getString("shortDescription");
-
-    }
-    public void parsefullDesc(JSONObject json2) throws JSONException {
-
-
-        this.fullDesc = json2.getString("fullDescription");
+        this.id = jsonObject.getString("id");
+        this.date = jsonObject.getString("date");
+        this.title = jsonObject.getString("title");
+        this.shortDesc = jsonObject.getString("shortDescription");
+        if (jsonObject.has("fullDescription")){
+            this.fullDesc=jsonObject.getString("fullDescription");}
 
     }
-
-
 
     public String getDate() {
         return date;
@@ -92,6 +92,66 @@ public class News {
         this.title = title;
     }
 
+    public String getFullDesc() {        return fullDesc;    }
+
+    public void setFullDesc(String fullDesc) {        this.fullDesc = fullDesc;    }
+
+    public interface OnUpdateListener {
+
+        void onUpdateComplete();
+
+        void onUpdateFailed();
+
+
+    }
+    public  void addOnUpdateListener(News.OnUpdateListener listener) {
+        listeners.add(listener);
+    }
+
+    public void removeOnUpdateListener(News.OnUpdateListener listener) {
+        listeners.remove(listener);
+    }
+    public void updateOneNews() {
+        new AsyncTask<Void, Void,Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                try {
+
+                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/details?id="+id).openConnection();
+                    connection.setRequestMethod("GET");
+                    connection.setUseCaches(false);
+                    String response = InputStreamUtils.toString(connection.getInputStream());
+                    JSONObject json = new JSONObject(response);
+                    json = json.getJSONObject("news");
+                    JSONObject jsonObject = json.getJSONObject("news");
+
+                    new News(jsonObject);
+                                        return true;
+                } catch (Exception e) {
+                    //TODO: обработка ошибок
+                    return false;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Boolean success) {
+                super.onPostExecute(success);
+
+                if (success == false) {
+                    for (News.OnUpdateListener listener : listeners) {
+                        listener.onUpdateFailed();
+                    }
+
+                } else {
+
+                    for (News.OnUpdateListener listener : listeners) {
+                        listener.onUpdateComplete();
+
+                    }
+                }
+            }
+        }.execute();
+    }
 
 
 

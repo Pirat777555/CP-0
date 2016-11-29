@@ -27,21 +27,21 @@ public class NewsListActivity extends Activity implements NewsList.OnUpdateListe
 
 
     private RecyclerView recyclerView;
-
+    private  Category category;
     private NewsList newslist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.newslist_view);
-        Category category;
+
         recyclerView = (RecyclerView) findViewById(recyclerView2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
        String categoryId = getIntent().getStringExtra("INTENT_PARAM_CATEGORY_ID");
         category = CategoriesList.INSTANCE.findCategoryById(categoryId);
         Log.d("TAG", category.getName());
         newslist =  NewsList.getList(category);
-        newslist.updateNews();
+       newslist.updateNews();
 
     }
 
@@ -49,7 +49,6 @@ public class NewsListActivity extends Activity implements NewsList.OnUpdateListe
     protected void onResume() {
         super.onResume();
            newslist.getNews();
-
         newslist.addOnUpdateListener(this);
         refresh();
 
@@ -62,7 +61,7 @@ public class NewsListActivity extends Activity implements NewsList.OnUpdateListe
     private void refresh() {
 
         List <News> news = newslist.getNews();
-        NewsAdapter adapter = new NewsAdapter(news);
+        NewsAdapter adapter = new NewsAdapter(news,category);
         recyclerView.setAdapter(adapter);
     }
     @Override

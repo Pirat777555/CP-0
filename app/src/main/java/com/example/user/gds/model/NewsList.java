@@ -132,43 +132,7 @@ public class NewsList {
             }
         }.execute();
     }
-    public void updateOneNews() {
-        new AsyncTask<Void, Void, List<News>>() {
-            @Override
-            protected List<News> doInBackground(Void... voids) {
-                try {
 
-                    HttpURLConnection connection = (HttpURLConnection) new URL("http://testtask.sebbia.com/v1/news/details?id=18").openConnection();
-                    connection.setRequestMethod("GET");
-                    connection.setUseCaches(false);
-                    String response = InputStreamUtils.toString(connection.getInputStream());
-                    JSONObject json2 = new JSONObject(response);
-
-                    JSONArray jsonArray = json2.getJSONArray("list");
-                    List<News> result = new ArrayList<News>();
-                    for (int i = 0; i < jsonArray.length(); ++i) {
-                        result.add(new News(jsonArray.getJSONObject(i)));
-                    }
-
-                    return result;
-                } catch (Exception e) {
-                    //TODO: обработка ошибок
-                    return null;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(List<News> news) {
-                super.onPostExecute(news);
-
-                if (news == null) {
-
-                } else {
-
-                }
-            }
-        }.execute();
-    }
 
 
 

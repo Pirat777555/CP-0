@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 
 import com.example.user.gds.R;
 
+import com.example.user.gds.model.Category;
 import com.example.user.gds.model.News;
 import com.example.user.gds.model.NewsList;
 
+import java.net.CacheRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +24,10 @@ import java.util.List;
 class NewsAdapter extends RecyclerView.Adapter<NewsListViewHolder> {
 
     private List<News> news;
-
-    public NewsAdapter(List<News> news) {
-        this.news = new ArrayList<>(news);
+    private Category category;
+    public NewsAdapter(List<News> news, Category category) {
+        this.category=category;
+       this.news = new ArrayList<>(news);
 
     }
 
@@ -37,7 +40,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsListViewHolder> {
 
     @Override
     public void onBindViewHolder(NewsListViewHolder holder, int position) {
-        holder.setNews(news.get(position));
+        holder.setNews(news.get(position),category);
     }
 
     @Override

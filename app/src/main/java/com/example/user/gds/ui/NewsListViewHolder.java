@@ -25,7 +25,7 @@ import static com.example.user.gds.ui.NewsActivity.news12;
  * Created by user on 19.11.2016.
  */
 public class NewsListViewHolder extends RecyclerView.ViewHolder {
-
+private Category category;
     private News news;
     private TextView newsView;
 
@@ -34,7 +34,6 @@ public class NewsListViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         newsView = (TextView) itemView.findViewById(R.id.newsTitle);
-
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -42,7 +41,7 @@ public class NewsListViewHolder extends RecyclerView.ViewHolder {
                 Context context = newsView.getContext();
                 Intent i = new Intent(context, NewsActivity.class);
                 i.putExtra(NewsActivity.news12, news.getId());
-
+                i.putExtra(NewsActivity.INTENT_PARAM_CATEGORY_ID,category.getId());
                 context.startActivity(i);
                 
             }
@@ -50,7 +49,8 @@ public class NewsListViewHolder extends RecyclerView.ViewHolder {
     }
 
 
-    public void setNews(News news) {
+    public void setNews(News news, Category category) {
+this.category=category;
         this.news = news;
         newsView.setText(" " + news.getTitle() + " " + news.getDate() + " " + news.getShortDesc());
 
